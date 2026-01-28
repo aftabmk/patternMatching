@@ -4,19 +4,10 @@
 
 #include "../data/price_provider.hpp"
 
-#include "../pattern/doubletop/doubletop.hpp"
 #include "../pattern/headshoulder/headshoulder.hpp"
-#include "../pattern/doublebottom/doublebottom.hpp"
+#include "../pattern/doublepattern/doublepattern.hpp"
 #include "../pattern/inverseheadshoulder/inverseheadshoulder.hpp"
 // ---------------- Pattern Tasks ----------------
-
-PatternResult doubleTopTask(const std::vector<double>& price) {
-    return DoubleTopDetector::detect(price);
-}
-
-PatternResult doubleBottomTask(const std::vector<double>& price) {
-    return DoubleBottomDetector::detect(price);
-}
 
 PatternResult headShoulderTask(const std::vector<double>& price) {
     return HeadShoulderDetector::detect(price);
@@ -24,6 +15,10 @@ PatternResult headShoulderTask(const std::vector<double>& price) {
 
 PatternResult inverseHeadShoulder(const std::vector<double>& price) {
     return InverseHeadShoulderDetector::detect(price);
+}
+
+PatternResult doublePattern(const std::vector<double>& price) {
+    return DoublePatternDetector::detect(price);
 }
 
 // ---------------- Parallel Runner ----------------
@@ -35,11 +30,7 @@ std::vector<PatternResult> runParallelPatterns() {
     std::vector<std::future<PatternResult>> jobs;
 
     jobs.push_back(
-        std::async(std::launch::async, doubleTopTask, std::cref(price))
-    );
-
-    jobs.push_back(
-        std::async(std::launch::async, doubleBottomTask, std::cref(price))
+        std::async(std::launch::async, doublePattern, std::cref(price))
     );
 
     jobs.push_back(
