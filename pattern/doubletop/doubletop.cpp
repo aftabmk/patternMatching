@@ -1,10 +1,10 @@
 #include "doubletop.hpp"
 
-static bool isLocalMax(const std::vector<double> &price, int i) {
+bool DoubleTopDetector::isLocalMax(const std::vector<double> &price, int i) {
     return price[i] > price[i-1] && price[i] > price[i+1];
 }
 
-bool DoubleTopDetector::detect(const std::vector<double>& price) {
+bool DoubleTopDetector::findDoubleTop(const std::vector<double>& price) {
     int n = price.size();
     if (n < 6) return false;
 
@@ -42,11 +42,22 @@ bool DoubleTopDetector::detect(const std::vector<double>& price) {
         if (valley > std::min(price1, price2) * 0.97) continue;
 
         // Step 5: Confirmation drop
-        if (p2 + 1 < n && price[p2 + 1] < price[p2]) {
-            std::cout << "Double Top detected between index "<< p1 << " and " << p2 << std::endl;
+        if (p2 + 1 < n && price[p2 + 1] < price[p2]) 
             return true;
-        }
     }
 
     return false;
 }
+
+PatternResult DoubleTopDetector::detect(const std::vector<double>& price) {
+    bool isDoubleTop = findDoubleTop(price);
+
+    PatternResult result;
+
+    result.pattern = PATTERN :: DOUBLE_TOP;
+    if(isDoubleTop)
+        result.trend = TREND :: BULLISH;
+
+    return result;
+}
+
