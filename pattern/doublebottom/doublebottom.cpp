@@ -2,8 +2,8 @@
 
 // -------------------- Helpers --------------------
 
-bool DoubleBottomDetector::isLocalMin(const std::vector<double>& price, int i) {
-    return price[i] < price[i - 1] && price[i] < price[i + 1];
+bool DoubleBottomDetector::isLocalMin(const std::vector<double>& price, int index) {
+    return price[index] < price[index - 1] && price[index] < price[index + 1];
 }
 
 // -------------------- Core Logic --------------------
@@ -56,12 +56,12 @@ bool DoubleBottomDetector::findDoubleBottom(const std::vector<double>& price) {
 // -------------------- Public API --------------------
 
 PatternResult DoubleBottomDetector::detect(const std::vector<double>& price) {
-    bool isDoubleBottom = findDoubleBottom(price);
+    bool isDoubleBottom = findDoubleBottom(price), context = nearRecentMax(price);
 
     PatternResult result;
 
     result.pattern = PATTERN::DOUBLE_BOTTOM;
-    result.trend = isDoubleBottom ? TREND :: BULLISH : TREND :: NEUTRAL;
+    result.trend = isDoubleBottom && context ? TREND :: BULLISH : TREND :: NEUTRAL;
 
     return result;
 }

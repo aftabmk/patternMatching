@@ -1,7 +1,7 @@
 #include "doubletop.hpp"
 
-bool DoubleTopDetector::isLocalMax(const std::vector<double> &price, int i) {
-    return price[i] > price[i-1] && price[i] > price[i+1];
+bool DoubleTopDetector::isLocalMax(const std::vector<double> &price, int index) {
+    return price[index] > price[index-1] && price[index] > price[index+1];
 }
 
 bool DoubleTopDetector::findDoubleTop(const std::vector<double>& price) {
@@ -50,12 +50,12 @@ bool DoubleTopDetector::findDoubleTop(const std::vector<double>& price) {
 }
 
 PatternResult DoubleTopDetector::detect(const std::vector<double>& price) {
-    bool isDoubleTop = findDoubleTop(price);
+    bool isDoubleTop = findDoubleTop(price), context = nearRecentMax(price);
 
     PatternResult result;
 
     result.pattern = PATTERN :: DOUBLE_TOP;
-    result.trend = isDoubleTop ? TREND ::BEARISH : TREND :: NEUTRAL;
+    result.trend = isDoubleTop && context ? TREND ::BEARISH : TREND :: NEUTRAL;
 
     return result;
 }

@@ -9,9 +9,11 @@
 
 #include "../../type/patternresult.hpp"
 
+#include "../utils/filter.hpp"
+
 class DoubleTopDetector {
     static bool findDoubleTop(const std::vector<double>& price);
-    static bool isLocalMax(const std::vector<double> &price,int i);
+    static bool isLocalMax(const std::vector<double> &price,int index);
 public:
     static PatternResult detect(const std::vector<double>& price);
 };
