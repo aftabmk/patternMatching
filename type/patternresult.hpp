@@ -4,8 +4,7 @@
 #include <iostream>
 
 struct PatternResult {
-    std::string trend;
-    std::string pattern;
+    std::string trend, pattern;
 
     void print(const int padding = 10) const {
         int PAD = padding;
