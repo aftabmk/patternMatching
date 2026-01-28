@@ -55,8 +55,7 @@ PatternResult DoubleTopDetector::detect(const std::vector<double>& price) {
     PatternResult result;
 
     result.pattern = PATTERN :: DOUBLE_TOP;
-    if(isDoubleTop)
-        result.trend = TREND :: BULLISH;
+    result.trend = isDoubleTop ? TREND ::BEARISH : TREND :: NEUTRAL;
 
     return result;
 }
