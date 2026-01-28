@@ -22,7 +22,7 @@ bool DoubleTopDetector::detect(const std::vector<double>& price) {
     double tolerance = 0.03;   // 3%
 
     // Step 2: Compare peak pairs
-    for (int k = 0; k + 1 < peaks.size(); k++) {
+    for (int k = 0; k + 1 < static_cast<int>(peaks.size()); k++) {
         int p1 = peaks[k];
         int p2 = peaks[k + 1];
 
