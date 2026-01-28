@@ -1,0 +1,1 @@
+about to create most used pattern for trading securities
