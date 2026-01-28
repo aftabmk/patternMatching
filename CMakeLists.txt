@@ -6,8 +6,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 file(GLOB_RECURSE FILE_SOURCES
     data/*.cpp
+    worker/*.cpp
     pattern/*.cpp
-    parallel/*.cpp
 )
 
 add_executable(app

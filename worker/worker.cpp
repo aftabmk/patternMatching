@@ -1,4 +1,4 @@
-#include "pattern_parallel.hpp"
+#include "worker.hpp"
 
 #include <future>
 

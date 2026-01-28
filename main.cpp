@@ -1,5 +1,5 @@
 #include <iostream>
-#include "parallel/pattern_parallel.hpp"
+#include "worker/worker.hpp"
 
 int main() {
 
